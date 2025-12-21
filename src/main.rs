@@ -7,18 +7,6 @@ enum FooError {
     Parse(ParseIntError),
 }
 
-// impl From<std::io::Error> for FooError {
-//     fn from(value: std::io::Error) -> Self {
-//         FooError::IO(value)
-//     }
-// }
-//
-// impl From<ParseIntError> for FooError {
-//     fn from(value: ParseIntError) -> Self {
-//         FooError::Parse(value)
-//     }
-// }
-
 fn do_something() -> Result<(), FooError> {
     let num: u32 = "123".parse()?;
     println!("{num}");

@@ -21,7 +21,7 @@ pub fn derive_answer_fn(input: TokenStream) -> TokenStream {
     let var_impls = data.variants.iter().map(|v| match &v.fields {
         syn::Fields::Unnamed(unnamed_fields) => {
             let var_name = &v.ident;
-            // assume there is exactly one field
+            // assuming there is exactly one field
             let field = unnamed_fields.unnamed.first().unwrap();
             quote! {
                 impl From<#field> for #name {
