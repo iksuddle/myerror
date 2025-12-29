@@ -34,7 +34,24 @@ pub fn derive_answer_fn(input: TokenStream) -> TokenStream {
         _ => generate_error(v.ident.span(), "all fields must be unnamed").into(),
     });
 
+    let fmt_cases = data.variants.iter().map(|v| {
+        let var_name = &v.ident;
+        quote! {
+            #name :: #var_name (e) => e.fmt(f)
+        }
+    });
+
     let expanded = quote! {
+        impl std::error::Error for #name {}
+
+        impl std::fmt::Display for #name {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                match self {
+                    #(#fmt_cases),*
+                }
+            }
+        }
+
         #(#var_impls)*
     };
 

@@ -1,7 +1,7 @@
 use myerror_derive::MyError;
 use std::num::ParseIntError;
 
-#[derive(MyError)]
+#[derive(MyError, Debug)]
 enum FooError {
     IO(std::io::Error),
     Parse(ParseIntError),
